@@ -30,6 +30,7 @@ spring:
       bootstrap-servers: localhost:9092
 
       topic-name: "product_created_event"
+      update-product-topic-name: "product_updated_event"
 
       # Key Serializer: Mesaj anahtarını bayt dizisine çevirir
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

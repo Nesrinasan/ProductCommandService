@@ -1,11 +1,9 @@
 package com.backendguru.productService.controller;
 
 import com.backendguru.productService.dto.ProductSaveRequestDto;
+import com.backendguru.productService.dto.ProductUpdateRequestDto;
 import com.backendguru.productService.service.ProductService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
@@ -24,5 +22,16 @@ public class ProductController {
 
     }
 
+    @PutMapping("/updateName")
+    public void updateName(@RequestBody ProductUpdateRequestDto productUpdateRequestDto){
+        productService.updateName(productUpdateRequestDto);
+
+    }
+
+
+    @PutMapping("/updateNameAllProduct")
+    public void updateNameAllProduct() {
+        productService.updateNameAllProduct();
+    }
 
 }

@@ -15,12 +15,27 @@ public class KafkaMessageProducer {
     @Value("${spring.kafka.producer.topic-name}")
     private String topicName;
 
+    @Value("${spring.kafka.producer.update-product-topic-name}")
+    private String updateProductTopicName;
+
+
     public KafkaMessageProducer(KafkaTemplate<String, String> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
     public void sendMessage(String message){
         CompletableFuture<SendResult<String, String>> send = kafkaTemplate.send(topicName, message);
+        send.whenComplete((result, ex) -> {
+            if(ex == null){
+                System.out.println("mesaj başaarı ile işlendi.");
+            }else {
+                System.out.println("MEsaj gönderilemedi.");
+            }
+        });
+    }
+
+    public void sendUpdateProductMessage(String message, String productId){
+        CompletableFuture<SendResult<String, String>> send = kafkaTemplate.send(updateProductTopicName, productId, message);
         send.whenComplete((result, ex) -> {
             if(ex == null){
                 System.out.println("mesaj başaarı ile işlendi.");
